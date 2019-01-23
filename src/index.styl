@@ -1,0 +1,126 @@
+@import '~antd/dist/antd.css';
+
+body
+  margin 0
+  padding 0
+  font-family -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+
+.App
+  display flex
+  flex-direction column
+  justify-content space-between
+  align-items: center
+  height 100vh
+
+.TournamentSelector
+  width 60vw
+  .ant-select-selection
+    height 50px
+    display flex
+    flex-direction: column
+    justify-content center
+
+.tournament-item
+  display flex
+  align-items: center
+  justify-content space-between
+  .tournament-item-content
+    display flex
+    align-items: center
+    h5
+      margin-bottom: 0
+    img
+      padding 1px
+      width 50px
+      height 50px
+      margin-right: 5px
+    span 
+      font-size 12px
+
+.Basket
+  display flex
+  justify-content center
+  flex-wrap: wrap
+  align-content flex-start
+  overflow: auto
+  background #fff
+  width 60vw
+  height 50vh
+  margin-top: 17vh
+  box-shadow 0 0 4px 1px rgba(0, 0, 0, 0.3)
+  .empty-content
+    align-self: center
+  .tournament-item
+    flex 1 1 16vw
+    margin: 5px 5px 0 5px
+    box-shadow 0 0 4px 1px rgba(0, 0, 0, 0.3)
+    height 15vh
+    padding 10px
+    img
+      width 70px
+      height 70px
+    &:hover
+      background: #bae7ff
+  .anticon
+    cursor pointer
+    &:hover
+      color red
+
+
+.ant-select-dropdown
+  width 60vw !important
+
+.ant-select-dropdown-menu-item-disabled
+  display flex
+  justify-content center
+  align-items center
+  height 15vh
+
+
+@media (max-width: 1321px)
+  .Basket
+    justify-content center
+    .tournament-item
+      flex 1 1 28vw
+      span 
+        font-size 12px
+
+@media (max-height:499px)
+  .Basket
+    .tournament-item
+      img
+        width 50px
+        height 50px
+
+
+@media (max-width: 499px)
+  .TournamentSelector
+    width 80vw
+  .ant-select-dropdown
+    width 80vw !important
+  .tournament-item-content
+    h5
+      font-size 10px !important
+    span 
+      font-size 10px !important
+  .Basket
+    width 80vw
+    .tournament-item
+      flex 1 1 78vw
+      height 10vh
+      h5
+        font-size 10px
+      span 
+        font-size 10px
+      img
+        width 50px
+        height 50px
+  
+
+
+
+
