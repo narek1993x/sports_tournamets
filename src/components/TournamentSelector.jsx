@@ -80,7 +80,7 @@ class TournamentSelector extends Component {
         {...(isOpen ? { open: isOpen } : {})}
         {...(showValue ? { value: searchTerm } : {})}
         menuItemSelectedIcon={<Icon type="close-circle" />}
-        className="TournamentSelector"
+        className="tournament-selector"
         placeholder="Search a tournament"
         clearIcon={searchTerm && <Icon type="close-circle" theme="filled" onClick={this.handleClear} />}
         onSelect={this.handleSelect}

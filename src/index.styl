@@ -9,14 +9,14 @@ body
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
 
-.App
+.app
   display flex
   flex-direction column
   justify-content space-between
   align-items: center
   height 100vh
 
-.TournamentSelector
+.tournament-selector
   margin-top 3vh
   width 60vw
   .ant-select-selection
@@ -42,7 +42,7 @@ body
     span 
       font-size 12px
 
-.Basket
+.basket
   display flex
   justify-content center
   flex-wrap: wrap
@@ -51,7 +51,7 @@ body
   background #fff
   width 60vw
   height 50vh
-  margin-top: 17vh
+  margin-top: 20vh
   box-shadow 0 0 4px 1px rgba(0, 0, 0, 0.3)
   .empty-content
     align-self: center
@@ -84,7 +84,7 @@ body
 
 
 @media (max-width: 1321px)
-  .Basket
+  .basket
     justify-content center
     .tournament-item
       flex 1 1 28vw
@@ -92,7 +92,7 @@ body
         font-size 12px
 
 @media (max-height:499px)
-  .Basket
+  .basket
     .tournament-item
       img
         width 50px
@@ -100,7 +100,7 @@ body
 
 
 @media (max-width: 499px)
-  .TournamentSelector
+  .tournament-selector
     width 80vw
   .ant-select-dropdown
     width 80vw !important
@@ -109,8 +109,9 @@ body
       font-size 10px !important
     span 
       font-size 10px !important
-  .Basket
+  .basket
     width 80vw
+    margin-top: 22vh
     .tournament-item
       flex 1 1 78vw
       height 10vh

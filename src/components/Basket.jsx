@@ -35,7 +35,7 @@ const Basket = ({ savedTournamets, dispatch }) => {
     ));
   }
 
-  return <div className="Basket">{content}</div>;
+  return <div className="basket">{content}</div>;
 };
 
 Basket.propTypes = {
