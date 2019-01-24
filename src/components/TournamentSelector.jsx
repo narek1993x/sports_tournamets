@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Select, Spin, Icon } from 'antd';
-import {
-  getTournamentsByTerm,
-  addTournamentInBasket,
-  clearTournamentsSarchResults
-} from '../store/tournaments/actions';
+import { getTournamentsByTerm, addTournamentInBasket } from '../store/tournaments/actions';
 
 const Option = Select.Option;
 
@@ -16,7 +12,8 @@ class TournamentSelector extends Component {
 
     this.state = {
       searchLoading: false,
-      isOpen: true,
+      isOpen: false,
+      showValue: false,
       searchTerm: '',
       selectedTournaments: this.getSavedTournamets(props.savedTournamets)
     };
@@ -42,11 +39,11 @@ class TournamentSelector extends Component {
       newSelectedTournaments = [...selectedTournaments, id];
     }
     this.props.dispatch(addTournamentInBasket(id));
-    this.setState({ selectedTournaments: newSelectedTournaments });
+    this.setState({ selectedTournaments: newSelectedTournaments, isOpen: true });
   };
 
   handleSearch = (value) => {
-    this.setState({ searchLoading: true, searchTerm: value });
+    this.setState({ searchLoading: true, searchTerm: value, showValue: true });
 
     if (this.asyncTimeOut) clearTimeout(this.asyncTimeOut);
 
@@ -57,42 +54,37 @@ class TournamentSelector extends Component {
     }
   };
 
-  handleFocus = () => {
-    this.setState({ isOpen: true });
-  };
-
   handleBlur = () => {
     this.setState({ isOpen: false });
   };
 
   handleClear = () => {
-    this.setState({ searchTerm: '', selectedTournaments: [] });
-    this.props.dispatch(clearTournamentsSarchResults());
+    this.setState({ searchTerm: '', isOpen: true });
   };
 
   render() {
     const { loading, searchOptions } = this.props;
-    const { searchLoading, searchTerm, isOpen, selectedTournaments } = this.state;
+    const { searchLoading, searchTerm, showValue, isOpen, selectedTournaments } = this.state;
 
     const isSearchOptions = !!searchOptions.length;
     const loader = (loading || searchLoading) && !!searchTerm;
 
-    const notFoundContent = loader ? <Spin /> : !isSearchOptions && searchTerm ? 'No Tournament Found' : '';
+    const notFoundContent = loader ? <Spin /> : !isSearchOptions && searchTerm ? 'No Tournament Found' : 'Empty';
     const cutNumber = window.innerWidth < 999 ? 60 : 90;
 
     return (
       <Select
         showSearch
-        open={isOpen}
+        showArrow={false}
         allowClear={!!searchTerm}
-        value={searchTerm}
+        {...(isOpen ? { open: isOpen } : {})}
+        {...(showValue ? { value: searchTerm } : {})}
         menuItemSelectedIcon={<Icon type="close-circle" />}
         className="TournamentSelector"
-        placeholder="Select a tournament"
+        placeholder="Search a tournament"
         clearIcon={searchTerm && <Icon type="close-circle" theme="filled" onClick={this.handleClear} />}
         onSelect={this.handleSelect}
         onSearch={this.handleSearch}
-        onFocus={this.handleFocus}
         onBlur={this.handleBlur}
         filterOption={() => true}
         notFoundContent={notFoundContent}

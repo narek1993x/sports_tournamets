@@ -1,15 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Icon, Empty } from 'antd';
+import { Icon, Modal, Empty } from 'antd';
 import { removeTournamentFromBasket } from '../store/tournaments/actions';
 
+const confirm = Modal.confirm;
+
 const Basket = ({ savedTournamets, dispatch }) => {
-  const handleRemove = (tournamentId) => {
-    dispatch(removeTournamentFromBasket(tournamentId));
+  const showConfirm = ({ title, id }) => {
+    confirm({
+      title: 'Are you sure delete this tournament?',
+      content: title,
+      onOk() {
+        dispatch(removeTournamentFromBasket(id));
+      },
+      onCancel() {}
+    });
   };
 
-  let content = <Empty className="empty-content" />;
+  let content = <Empty className="empty-content" description={<span>No Saved Tournaments</span>} />;
 
   if (savedTournamets.length) {
     content = savedTournamets.map(({ image, title, description, id }) => (
@@ -18,10 +27,10 @@ const Basket = ({ savedTournamets, dispatch }) => {
           <img src={image} alt="img" />
           <div>
             <h5>{title}</h5>
-            <span>{description.length > 60 ? `${description.substr(0, 60)}...` : description}</span>
+            <span>{description.length > 80 ? `${description.substr(0, 80)}...` : description}</span>
           </div>
         </div>
-        <Icon type="close-circle" theme="filled" onClick={() => handleRemove(id)} />
+        <Icon type="close-circle" theme="filled" onClick={() => showConfirm({ title, id })} />
       </div>
     ));
   }
