@@ -1,21 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Icon, Modal, Empty } from 'antd';
+import { Icon, Empty, Popconfirm, message } from 'antd';
 import { removeTournamentFromBasket } from '../store/tournaments/actions';
 
-const confirm = Modal.confirm;
-
 const Basket = ({ savedTournamets, dispatch }) => {
-  const showConfirm = ({ title, id }) => {
-    confirm({
-      title: 'Are you sure delete this tournament?',
-      content: title,
-      onOk() {
-        dispatch(removeTournamentFromBasket(id));
-      },
-      onCancel() {}
-    });
+  const confirmHandler = ({ title, id }) => {
+    dispatch(removeTournamentFromBasket(id));
+    message.success(`${title} is deleted.`);
   };
 
   let content = <Empty className="empty-content" description={<span>No Saved Tournaments</span>} />;
@@ -30,7 +22,15 @@ const Basket = ({ savedTournamets, dispatch }) => {
             <span>{description.length > 80 ? `${description.substr(0, 80)}...` : description}</span>
           </div>
         </div>
-        <Icon type="close-circle" theme="filled" onClick={() => showConfirm({ title, id })} />
+        <Popconfirm
+          placement="top"
+          title={`Are you sure to delete this tournament "${title}"`}
+          onConfirm={() => confirmHandler({ title, id })}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Icon type="close-circle" theme="filled" />
+        </Popconfirm>
       </div>
     ));
   }
