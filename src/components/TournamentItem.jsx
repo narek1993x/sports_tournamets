@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Icon, Popconfirm } from 'antd';
 
 const TournamentItem = ({ id, title, src, description, isChecked, isHaveDeleteButton, cutNumber = 80, onConfirm }) => (
@@ -24,5 +25,16 @@ const TournamentItem = ({ id, title, src, description, isChecked, isHaveDeleteBu
     {isChecked && <Icon type="check" />}
   </div>
 );
+
+TournamentItem.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  src: PropTypes.string,
+  description: PropTypes.string,
+  isChecked: PropTypes.bool,
+  isHaveDeleteButton: PropTypes.bool,
+  cutNumber: PropTypes.number,
+  onConfirm: PropTypes.func
+};
 
 export default TournamentItem;
