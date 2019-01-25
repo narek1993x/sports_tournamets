@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Select, Spin, Icon } from 'antd';
 import { getTournamentsByTerm, addTournamentInBasket } from '../store/tournaments/actions';
+import TournamentItem from './TournamentItem';
 
 const Option = Select.Option;
 
@@ -88,15 +89,14 @@ class TournamentSelector extends Component {
         notFoundContent={notFoundContent}
       >
         {searchOptions.map(({ image, title, description, id }) => (
-          <Option value={id} key={id} className="tournament-item">
-            <div className="tournament-item-content">
-              <img src={image} alt="img" />
-              <div>
-                <h5>{title}</h5>
-                <span>{description.length > cutNumber ? `${description.substr(0, cutNumber)}...` : description}</span>
-              </div>
-            </div>
-            {selectedTournaments.includes(id) && <Icon type="check" />}
+          <Option value={id} key={id}>
+            <TournamentItem
+              title={title}
+              src={image}
+              description={description}
+              cutNumber={cutNumber}
+              isChecked={selectedTournaments.includes(id)}
+            />
           </Option>
         ))}
       </Select>

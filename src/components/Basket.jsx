@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Icon, Empty, Popconfirm, message } from 'antd';
+import { Empty, message } from 'antd';
 import { removeTournamentFromBasket } from '../store/tournaments/actions';
+import TournamentItem from './TournamentItem';
 
 const Basket = ({ savedTournamets, dispatch }) => {
   const confirmHandler = ({ title, id }) => {
@@ -14,24 +15,15 @@ const Basket = ({ savedTournamets, dispatch }) => {
 
   if (savedTournamets.length) {
     content = savedTournamets.map(({ image, title, description, id }) => (
-      <div className="tournament-item" key={id}>
-        <div className="tournament-item-content">
-          <img src={image} alt="img" />
-          <div>
-            <h5>{title}</h5>
-            <span>{description.length > 80 ? `${description.substr(0, 80)}...` : description}</span>
-          </div>
-        </div>
-        <Popconfirm
-          placement="top"
-          title={`Are you sure to delete this tournament "${title}"`}
-          onConfirm={() => confirmHandler({ title, id })}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Icon type="close-circle" theme="filled" />
-        </Popconfirm>
-      </div>
+      <TournamentItem
+        key={id}
+        id={id}
+        title={title}
+        src={image}
+        description={description}
+        onConfirm={confirmHandler}
+        isHaveDeleteButton
+      />
     ));
   }
 
