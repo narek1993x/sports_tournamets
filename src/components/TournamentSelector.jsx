@@ -66,10 +66,9 @@ class TournamentSelector extends Component {
     const { loading, searchOptions } = this.props;
     const { searchLoading, searchTerm, showValue, isOpen, selectedTournaments } = this.state;
 
-    const isSearchOptions = !!searchOptions.length;
     const loader = (loading || searchLoading) && !!searchTerm;
 
-    const notFoundContent = loader ? <Spin /> : !isSearchOptions && searchTerm ? 'No Tournament Found' : 'Empty';
+    const notFoundContent = loader ? <Spin /> : !searchOptions.length && searchTerm ? 'No Tournament Found' : 'Empty';
     const cutNumber = window.innerWidth < 999 ? 60 : 90;
 
     return (
@@ -79,7 +78,6 @@ class TournamentSelector extends Component {
         allowClear={!!searchTerm}
         {...(isOpen ? { open: isOpen } : {})}
         {...(showValue ? { value: searchTerm } : {})}
-        menuItemSelectedIcon={<Icon type="close-circle" />}
         className="tournament-selector"
         placeholder="Search a tournament"
         clearIcon={searchTerm && <Icon type="close-circle" theme="filled" onClick={this.handleClear} />}
